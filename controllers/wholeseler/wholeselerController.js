@@ -184,3 +184,8 @@ exports.wholeselermail = async (req, res) => {
       return res.status(400).json({ errors: [{ msg: "Token Expired" }] });
     }
   };
+
+
+  // exports.findarea=async (req,res)=>{
+  //   const area=await Wholeseler.find({area})
+  // }

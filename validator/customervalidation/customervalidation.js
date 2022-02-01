@@ -3,54 +3,33 @@ const {check, validationResult } = require('express-validator');
 // VALIDATION FOR USER SIGNUP
 
 exports.validateSignupRequest =[
-   check('name')
+   check('username')
    .notEmpty()
-   .withMessage("name Is Required"),
-   check('address')
+   .withMessage("username Is Required"),
+   check('password')
    .notEmpty()
-   .withMessage("Please Enter a address"),
-   check('city')
-   .notEmpty()
-   .withMessage("Please Enter a city"),
-   check('state')
-   .notEmpty()
-   .withMessage("Please Enter a state"),
-   check('zipcode')
-   .notEmpty()
-   .withMessage("Please Enter a zipcode"),
-   check('email')
-   .isEmail()
-   .withMessage("Please Enter a email"),
+   .withMessage("password Is Required"),
    check('Ein')
    .notEmpty()
    .withMessage("Please Enter a Ein"),
-   check('username')
+   check('Address')
    .notEmpty()
-   .withMessage("Please Enter a username"),
-   check('password')
+   .withMessage("Please Enter a Address"),
+   check('city')
    .notEmpty()
-   .withMessage("Please Enter a password"),
+   .withMessage("Please Enter a city"),
+   check('email')
+   .isEmail()
+   .withMessage("Please Enter a email"),
+   check('state')
+   .notEmpty()
+   .withMessage("Please Enter a state"),
+   check('zip')
+   .notEmpty()
+   .withMessage("Please Enter a zip"),
    check("phone")
    .isLength({ min: 10 })
-   .withMessage("Please Enter a Valid phone number"),
-   check('AuthorizedDistributers')
-   .notEmpty()
-   .withMessage("Please Enter a AuthorizedDistributers"),
-   check('area')
-   .notEmpty()
-   .withMessage("Please Enter a area"),
-   check('MinOrder')
-   .notEmpty()
-   .withMessage("Please Enter a MinOrder"),
-   check('BankName')
-   .notEmpty()
-   .withMessage("Please Enter a BankName"),
-   check('Routing')
-   .notEmpty()
-   .withMessage("Please Enter a Routing"),
-   check('Account')
-   .notEmpty()
-   .withMessage("Please Enter a Account"),
+   .withMessage("Please Enter a Valid phone number")
 ];
 
 // VALIDATION FOR SIGNUP

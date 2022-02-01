@@ -1,7 +1,7 @@
 let router = require("express").Router();
 var Controller = require("../../controllers/wholeseler/wholeselerController");
 const auth=require("../../midleware/auth")
-const { validateSignupRequest, isRequestValidated,validateSigninRequest } = require('../../validator/customervalidation/customervalidation');
+const { validateSignupRequest, isRequestValidated,validateSigninRequest } = require('../../validator/customervalidation/wholeselarvalidation');
 
 // ADMIN ROUTES
 
