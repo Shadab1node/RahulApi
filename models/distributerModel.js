@@ -4,19 +4,24 @@ var Schema = mongoose.Schema;
 const distributerSchema = new Schema(
   { 
         name:{
-          type:String
+          type:String,
+          required:true
         },
         username:{
-          type:String
+          type:String,
+          required:true
         },
         password:{
-          type:String      
+          type:String,
+          required:true      
     },
         phone:{
-            type:Number
+            type:Number,
+            required:true
         },
         area:{
-          type:String
+          type:String,
+          required:true
         }
 },
     {

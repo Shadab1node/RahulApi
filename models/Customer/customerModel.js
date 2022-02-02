@@ -3,31 +3,40 @@ const Schema=mongoose.Schema
 
 const customerSchema=new Schema({
     email:{
-        type:String
+        type:String,
+        required:true
     },
     username:{
-        type:String
+        type:String,
+        required:true
     },
     password:{
-        type:String
+        type:String,
+        required:true
     },
     phone:{
-        type:Number
+        type:Number,
+        required:true
     },
     Ein:{
-        type:String
+        type:String,
+        required:true
     },
     Address:{
-        type:String
+        type:String,
+        required:true
     },
     city:{
-        type:String
+        type:String,
+        required:true
     },
     state:{
-        type:String
+        type:String,
+        required:true
     },
     zip:{
-        type:String
+        type:String,
+        required:true
     }
 },
     {
