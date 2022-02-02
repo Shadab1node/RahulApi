@@ -14,6 +14,9 @@ const distributerSchema = new Schema(
     },
         phone:{
             type:Number
+        },
+        area:{
+          type:String
         }
 },
     {
