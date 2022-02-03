@@ -19,7 +19,7 @@ exports.additem=async (req,res)=>{
 
 exports.getitem=async (req,res)=>{
     try{
-    const getitem=await Item.find({})
+    const getitem=await Item.find({}).populate("distributer","name")
     console.log(getitem)
     return res.status(200).json({msg:"Item get successfully",getitem})
     }catch (error) {

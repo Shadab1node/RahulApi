@@ -10,7 +10,7 @@ const itemSchema= new Schema(
         },
         distributer:{
             type:Schema.Types.ObjectId,
-            ref:"distributer"
+            ref:"distibuter"
         },
         photo:{
             type:String,
