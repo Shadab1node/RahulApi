@@ -4,9 +4,10 @@ const Item=require("../models/itemModel")
 
 exports.additem=async (req,res)=>{
     try {
+        const url="https://rahul-api-1.herokuapp.com/upload/Image/"
     const itemImage = req.file ? req.file.filename : null;
     const item=new Item(req.body);
-    item.photo=itemImage
+    item.photo=`${url}${itemImage}`
     item.save()
     console.log(item)
     return res.status(200).json({msg:"item add successfully",item})
