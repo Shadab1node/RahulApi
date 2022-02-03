@@ -21,5 +21,7 @@ router.route("/getitem").get(Controller.getitem)
 router.route("/getitembyid/:id").get(Controller.getitembyid)
 router.route("/updateitem/:id").put(itemAdd.single("image"),Controller.updateitem)
 router.route("/deleteitem/:id").delete(Controller.deleteitem)
+router.route("/productcategorybyId/:id").get(Controller.productcategorybyId)
+
 
 module.exports = router;

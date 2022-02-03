@@ -37,4 +37,5 @@ exports.getshopingbyid=async (req,res)=>{
         console.log(error)
     return res.status(400).json({msg:"something went wrong"})
     }
-    }
+}
+

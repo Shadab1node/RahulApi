@@ -81,3 +81,16 @@ exports.updateitem=async (req,res)=>{
         return res.status(400).json({msg:"something went wrong"})
         }
         }
+
+
+        exports.productcategorybyId = async (req, res) => {
+            try {
+              const productCategorybyID = await Item.find({
+                category: req.params.id,
+              }).populate("category","category");
+              console.log(productCategorybyID)
+              return res.status(200).json(productCategorybyID);
+            } catch (error) {
+              return res.status(500).json({ msg: error.message });
+            }
+          };
