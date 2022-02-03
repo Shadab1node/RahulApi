@@ -2,6 +2,7 @@ require('dotenv').config();
 let express = require("express");
 require("./config/database")
 const cors = require("cors");
+const path=require("path")
 let app = express();
 app.use(
   cors({
@@ -10,6 +11,8 @@ app.use(
 );
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use("/upload", express.static(path.join(__dirname, "upload")));
 
 // ALL ROUTES
 let adminRoutes=require("./routes/admin/admin-routes")
