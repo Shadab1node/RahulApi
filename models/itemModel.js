@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const { required } = require("nodemon/lib/config");
 var Schema = mongoose.Schema;
 
 const itemSchema= new Schema(
@@ -12,34 +13,44 @@ const itemSchema= new Schema(
             ref:"distributer"
         },
         photo:{
-            type:String
+            type:String,
+            required:true
         },
         item:{
-            type:String
+            type:String,
+            required:true
         },
         brand:{
-            type:String
+            type:String,
+            required:true
         },
         description:{
-            type:String
+            type:String,
+            required:true
         },
         price:{
-            type:String
+            type:String,
+            required:true
         },
         Qty:{
             type:String,
+            required:true
         },
         msrmt:{
-            type:String
+            type:String,
+            required:true
         },
         active:{
-            type:String
+            type:String,
+            required:true
         },
         discount:{
-            type:String
+            type:String,
+            required:true
         },
         date:{
-            type:String
+            type:String,
+            required:true
         }
     },
     {
