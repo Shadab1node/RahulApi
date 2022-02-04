@@ -12,7 +12,8 @@ const shopingSchema= new Schema(
             ref:"item"
         },
         select:{
-            type:String
+            type:String,
+            default:"false"
         },
         Qut:{
             type:String
