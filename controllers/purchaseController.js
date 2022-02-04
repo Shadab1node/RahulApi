@@ -20,7 +20,8 @@ exports.addpurchase=async (req,res)=>{
 
 exports.getpurchase=async (req,res)=>{
     try {
-    const purchase=await Purchase.find({});
+    const purchase=await Purchase.find({}).populate("customer")
+    .populate("shoping");
     console.log(purchase)
     return res.status(200).json({msg:"purchase get successfully",purchase})
     }catch (error) {
