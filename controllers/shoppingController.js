@@ -39,3 +39,14 @@ exports.getshopingbyid=async (req,res)=>{
     }
 }
 
+exports.itemgetbyvenderid = async (req, res) => {
+    try {
+      const itemgetbyvenderid = await Shoping.find({
+        vender: req.params.id,
+      }).populate("vender").populate("item");
+      console.log(itemgetbyvenderid)
+      return res.status(200).json(itemgetbyvenderid);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  };
