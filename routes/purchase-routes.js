@@ -5,6 +5,6 @@ const auth=require("../midleware/auth")
 
 router.route("/addpurchase").post(Controller.addpurchase);
 router.route("/getpurchase").get(Controller.getpurchase);
-
+router.route("/purchasebycustomerid/:id").get(Controller.purchasebycustomerid);
 
 module.exports = router;

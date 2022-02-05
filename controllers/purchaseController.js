@@ -30,3 +30,14 @@ exports.getpurchase=async (req,res)=>{
     }
 }
 
+exports.purchasebycustomerid = async (req, res) => {
+    try {
+      const purchasebycustomerid = await Purchase.find({
+        cutomer: req.params.id,
+      }).populate("customer").populate("shoping");
+      console.log(purchasebycustomerid)
+      return res.status(200).json(purchasebycustomerid);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  };
