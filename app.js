@@ -27,6 +27,8 @@ let distributerRoutes=require("./routes/distributer-routes")
 let itemRoutes=require("./routes/item-routes")
 let shopingRoutes=require("./routes/shoping-routes")
 let purchaseRoutes=require("./routes/purchase-routes")
+let invoiceRoutes=require("./routes/invoice-routes")
+
 
 var port = process.env.PORT || 2222;
 app.use("/api",
@@ -41,7 +43,8 @@ categoryRoutes,
 distributerRoutes,
 itemRoutes,
 shopingRoutes,
-purchaseRoutes
+purchaseRoutes,
+invoiceRoutes
 )
 
 app.listen(port, function () {console.log("Running on port " + port)});
