@@ -17,7 +17,20 @@ exports.getinvoice=async (req,res)=>{
         .populate("shoping")
         .populate("customer")
         .populate("vender")
-    return res.status(200).json({msg:"Invoice add successfully",getinvoice})
+    return res.status(200).json({msg:"Invoice get successfully",getinvoice})
+    } catch (error) {
+        console.log(error)
+    return res.status(400).json({msg:"something went wrong"})
+
+    }
+}
+exports.getinvoicebyid=async (req,res)=>{
+    try {
+        const getinvoicebyid=await Invoice.findById({_id:req.params.id})
+        .populate("shoping")
+        .populate("customer")
+        .populate("vender")
+    return res.status(200).json({msg:"Invoice get successfully",getinvoicebyid})
     } catch (error) {
         console.log(error)
     return res.status(400).json({msg:"something went wrong"})
