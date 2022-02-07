@@ -15,6 +15,10 @@ const invoiceModel= new Schema(
             type:Schema.Types.ObjectId,
             ref:"shoping"
         },
+        item:{
+            type:Schema.Types.ObjectId,
+            ref:"item"
+        },
         customer:{
             type:Schema.Types.ObjectId,
             ref:"customer"

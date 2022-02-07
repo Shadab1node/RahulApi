@@ -14,9 +14,10 @@ exports.addinvoice=async (req,res)=>{
 exports.getinvoice=async (req,res)=>{
     try {
         const getinvoice=await Invoice.find({})
-        .populate("shoping")
+        .populate("shoping.item")
         .populate("customer")
         .populate("vender")
+        .populate("item")
     return res.status(200).json({msg:"Invoice get successfully",getinvoice})
     } catch (error) {
         console.log(error)
@@ -31,7 +32,8 @@ exports.getinvoicebyid=async (req,res)=>{
         })
         .populate("shoping")
         .populate("customer")
-        .populate("vender",)
+        .populate("vender")
+        .populate("item")
     return res.status(200).json({msg:"Invoice get successfully",getinvoicebyid})
     } catch (error) {
         console.log(error)
