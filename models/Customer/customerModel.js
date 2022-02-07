@@ -40,7 +40,7 @@ const customerSchema=new Schema({
     },
     bussinessname:{
         type:String,
-        required:true
+        // required:true
     }
 },
     {
