@@ -26,10 +26,12 @@ exports.getinvoice=async (req,res)=>{
 }
 exports.getinvoicebyid=async (req,res)=>{
     try {
-        const getinvoicebyid=await Invoice.findById({_id:req.params.id})
+        const getinvoicebyid=await Invoice.find({
+            vender:req.params.id
+        })
         .populate("shoping")
         .populate("customer")
-        .populate("vender")
+        .populate("vender",)
     return res.status(200).json({msg:"Invoice get successfully",getinvoicebyid})
     } catch (error) {
         console.log(error)
