@@ -37,6 +37,10 @@ const customerSchema=new Schema({
     zip:{
         type:String,
         required:true
+    },
+    bussinessname:{
+        type:String,
+        required:true
     }
 },
     {
