@@ -24,7 +24,7 @@
 
         exports.getdistributer=async (req,res)=>{
         try{
-        const getdistributer=await Distributer.find({})
+        const getdistributer=await Distributer.find({wholesaler:req.wholesaler._id})
         console.log(getdistributer)
         return res.status(200).json({msg:"Distributer get successfully",getdistributer})
         }catch (error) {

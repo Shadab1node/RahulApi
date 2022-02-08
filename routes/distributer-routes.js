@@ -4,7 +4,7 @@ const auth=require("../midleware/auth")
 // ADD DISTRIBUTER
 
 router.route("/adddistributer").post(auth.wholesalerloggedIn,Controller.adddistributer);
-router.route("/getdistributer").get(Controller.getdistributer)
+router.route("/getdistributer").get(auth.wholesalerloggedIn,Controller.getdistributer)
 router.route("/updatedistributer/:id").put(Controller.updatedistributer)
 router.route("/deletedistributer/:id").delete(Controller.deletedistributer)
 
