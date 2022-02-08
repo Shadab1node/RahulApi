@@ -8,6 +8,7 @@ exports.additem=async (req,res)=>{
     const itemImage = req.file ? req.file.filename : null;
     const item=new Item(req.body);
     item.photo=`${url}${itemImage}`
+    item.wholesaler=req.wholesaler._id
     item.save()
     console.log(item)
     return res.status(200).json({msg:"item add successfully",item})
@@ -20,7 +21,7 @@ exports.additem=async (req,res)=>{
 
 exports.getitem=async (req,res)=>{
     try{
-    const getitem=await Item.find({}).populate("distributer","name area")
+    const getitem=await Item.find({wholesaler:req.wholesaler._id}).populate("distributer","name area")
     console.log(getitem)
     return res.status(200).json({msg:"Item get successfully",getitem})
     }catch (error) {

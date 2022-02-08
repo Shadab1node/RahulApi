@@ -4,6 +4,10 @@ var Schema = mongoose.Schema;
 
 const itemSchema= new Schema(
     { 
+        wholesaler:{
+            type:Schema.Types.ObjectId,
+            ref:"wholesaler"
+          },
         category:{
             type:Schema.Types.ObjectId,
             ref:"category"
@@ -21,7 +25,7 @@ const itemSchema= new Schema(
             required:true
         },
         brand:{
-            type:String,
+            type:String,                   
             required:true
         },
         description:{

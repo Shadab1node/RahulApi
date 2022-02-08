@@ -8,6 +8,7 @@
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
         const distributer=new Distributer(req.body)
+        distributer.wholesaler=req.wholesaler._id
         distributer.password=hash
         distributer.save()
         return res.status(200).json({msg:"Distibuter add successfully",distributer})

@@ -12,12 +12,12 @@ var itemAdd = multer({ storage: itemAdd });
 
 const router=require("express").Router()
 const Controller=require("../controllers/itemController")
-
+const auth=require("../midleware/auth")
 
 // ADD DISTRIBUTER
 
-router.route("/additem").post(itemAdd.single("image"),Controller.additem);
-router.route("/getitem").get(Controller.getitem)
+router.route("/additem").post(auth.wholesalerloggedIn,itemAdd.single("image"),Controller.additem);
+router.route("/getitem").get(auth.wholesalerloggedIn,Controller.getitem)
 router.route("/getitembyid/:id").get(Controller.getitembyid)
 router.route("/updateitem/:id").put(itemAdd.single("image"),Controller.updateitem)
 router.route("/deleteitem/:id").delete(Controller.deleteitem)

@@ -3,6 +3,10 @@ var Schema = mongoose.Schema;
 
 const distributerSchema = new Schema(
   { 
+    wholesaler:{
+      type:Schema.Types.ObjectId,
+      ref:"wholesaler"
+    },
         name:{
           type:String,
           required:true
