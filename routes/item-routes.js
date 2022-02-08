@@ -18,6 +18,7 @@ const auth=require("../midleware/auth")
 
 router.route("/additem").post(auth.wholesalerloggedIn,itemAdd.single("image"),Controller.additem);
 router.route("/getitem").get(auth.wholesalerloggedIn,Controller.getitem)
+router.route("/getallitem").get(Controller.getallitem)
 router.route("/getitembyid/:id").get(Controller.getitembyid)
 router.route("/updateitem/:id").put(itemAdd.single("image"),Controller.updateitem)
 router.route("/deleteitem/:id").delete(Controller.deleteitem)

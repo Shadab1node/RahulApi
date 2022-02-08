@@ -21,7 +21,10 @@ exports.additem=async (req,res)=>{
 
 exports.getitem=async (req,res)=>{
     try{
-    const getitem=await Item.find({wholesaler:req.wholesaler._id}).populate("distributer","name area")
+    const getitem=await Item.find({wholesaler:req.wholesaler._id})
+    .populate("distributer","name area")
+    .populate("wholesaler","name")
+    .populate("category","category")
     console.log(getitem)
     return res.status(200).json({msg:"Item get successfully",getitem})
     }catch (error) {
@@ -29,6 +32,23 @@ exports.getitem=async (req,res)=>{
     return res.status(400).json({msg:"something went wrong",error:error.message})
     }
     }
+
+    // GET ALL ITEM
+
+    
+exports.getallitem=async (req,res)=>{
+  try{
+  const getitem=await Item.find({})
+  .populate("distributer","name area")
+  .populate("wholesaler","name")
+  .populate("category","category")
+  console.log(getitem)
+  return res.status(200).json({msg:"Item get successfully",getitem})
+  }catch (error) {
+  console.log(error)
+  return res.status(400).json({msg:"something went wrong",error:error.message})
+  }
+  }
 
     // GET ITEM BY ID
 

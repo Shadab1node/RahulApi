@@ -6,7 +6,7 @@ const itemSchema= new Schema(
     { 
         wholesaler:{
             type:Schema.Types.ObjectId,
-            ref:"wholesaler"
+            ref:"wholeseler"
           },
         category:{
             type:Schema.Types.ObjectId,
