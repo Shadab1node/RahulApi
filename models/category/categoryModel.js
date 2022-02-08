@@ -6,6 +6,10 @@ const categorySchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:"wholeseler"
   },
+  distributer:{
+    type:Schema.Types.ObjectId,
+    ref:"distributer"
+  },
     vender:{
       type:Schema.Types.ObjectId,
       ref:"vender"

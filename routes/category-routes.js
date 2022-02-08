@@ -8,5 +8,7 @@ router.route("/getcategory").get(auth.wholesalerloggedIn,Controller.getcategory)
 router.route("/getcategorybyid/:id").get(auth.wholesalerloggedIn,Controller.getcategorybyid);
 router.route("/updatecategory/:id").put(auth.wholesalerloggedIn,Controller.updatecategory);
 router.route("/deletecategory/:id").delete(auth.wholesalerloggedIn,Controller.deletecategory);
+router.route("/categorybywholesalerid/:id").get(Controller.categorybywholesalerid);
+
 
 module.exports = router;

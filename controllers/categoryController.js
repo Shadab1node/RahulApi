@@ -30,7 +30,7 @@ exports.getcategory=async (req,res)=>{
 
 exports.getcategorybyid=async (req,res)=>{
     try {
-    const getcategorybyid=await Category.findById({_id:req.params.id})
+    const getcategorybyid=await Category.findById({wholesaler: req.params.id})
     return res.status(200).json({msg:"category get by id successfully",getcategorybyid})
     } catch (error) {
         console.log(error)
@@ -59,6 +59,18 @@ exports.deletecategory=async (req,res)=>{
     try {
     const deletecategory=await Category.findByIdAndDelete({_id:req.params.id})
     return res.status(200).json({msg:"category delete successfully",deletecategory})
+    } catch (error) {
+        console.log(error)
+    return res.status(400).json({msg:"something went wrong"})   
+    }
+}
+
+exports.categorybywholesalerid=async (req,res)=>{
+    try {
+    const categorybywholesalerid=await Category.find({
+        wholesaler:req.params.id
+    })
+    return res.status(200).json({msg:"get category by wholeseler id successfully",categorybywholesalerid})
     } catch (error) {
         console.log(error)
     return res.status(400).json({msg:"something went wrong"})   

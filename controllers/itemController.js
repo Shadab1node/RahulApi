@@ -108,7 +108,9 @@ exports.updateitem=async (req,res)=>{
             try {
               const productCategorybyID = await Item.find({
                 category: req.params.id,
-              }).populate("category","category");
+              }).populate("category","category")
+              .populate("wholesaler","name")
+              .populate("distributer","name")
               console.log(productCategorybyID)
               return res.status(200).json(productCategorybyID);
             } catch (error) {
