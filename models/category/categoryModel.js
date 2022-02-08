@@ -1,8 +1,11 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-const categorySchema = new Schema(
-  { 
+const categorySchema = new Schema({
+  wholesaler:{
+    type:Schema.Types.ObjectId,
+    ref:"wholeseler"
+  },
     vender:{
       type:Schema.Types.ObjectId,
       ref:"vender"

@@ -5,6 +5,7 @@ const Category=require("../models/category/categoryModel")
 exports.addcategory=async (req,res)=>{
     try {
     const category=new Category(req.body)
+    category.wholesaler=req.wholesaler._id
     category.save()
     return res.status(200).json({msg:"category add successfully",category})
     } catch (error) {
@@ -17,7 +18,7 @@ exports.addcategory=async (req,res)=>{
 
 exports.getcategory=async (req,res)=>{
     try {
-    const getcategory=await Category.find({})
+    const getcategory=await Category.find({wholesaler:req.wholesaler._id})
     return res.status(200).json({msg:"category get successfully",getcategory})
     } catch (error) {
         console.log(error)

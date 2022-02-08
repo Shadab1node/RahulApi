@@ -5,7 +5,7 @@ const distributerSchema = new Schema(
   { 
     wholesaler:{
       type:Schema.Types.ObjectId,
-      ref:"wholesaler"
+      ref:"wholeseler"
     },
         name:{
           type:String,
