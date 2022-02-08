@@ -23,6 +23,7 @@ router.route("/getitembyid/:id").get(Controller.getitembyid)
 router.route("/updateitem/:id").put(itemAdd.single("image"),Controller.updateitem)
 router.route("/deleteitem/:id").delete(Controller.deleteitem)
 router.route("/productcategorybyId/:id").get(Controller.productcategorybyId)
+router.route("/categorybywholeselerid/:id").get(Controller.categorybywholeselerid)
 
 
 module.exports = router;

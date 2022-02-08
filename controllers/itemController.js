@@ -115,3 +115,17 @@ exports.updateitem=async (req,res)=>{
               return res.status(500).json({ msg: error.message });
             }
           };
+
+          exports.categorybywholeselerid = async (req, res) => {
+            try {
+              const categorybywholeselerid = await Item.find({
+                wholesaler: req.params.id,
+              }).populate("category","category")
+              .populate("wholesaler","name")
+              .populate("distributer","name")
+              console.log(categorybywholeselerid)
+              return res.status(200).json(categorybywholeselerid);
+            } catch (error) {
+              return res.status(500).json({ msg: error.message });
+            }
+          };
