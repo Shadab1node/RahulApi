@@ -25,12 +25,12 @@ const shopingSchema= new Schema(
         total:{
             type:String
         },
-        finalqty:{
-            type:String
-        },
-        finalprice:{
-            type:String
-        },
+        // finalqty:{
+        //     type:String
+        // },
+        // finalprice:{
+        //     type:String
+        // },
         pickup:{
             type:String
         }
