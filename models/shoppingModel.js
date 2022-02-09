@@ -14,6 +14,7 @@ const shopingSchema= new Schema(
         items: {  
             type: [Schema.Types.ObjectId],
             ref: "item",
+            default: []
         },
         select:{
             type:String,
