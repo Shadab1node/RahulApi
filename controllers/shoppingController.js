@@ -11,12 +11,14 @@ exports.addshoping=async (req,res)=>{
     // //shoping.items.set(req.body.items);
     // shoping.save();
     // console.log(shoping)
-    let shoping = await Shoping.findOne({wholeseler: req.body.wholeseler});
+    let shoping = await Shoping.findOne({customer: req.body.customer});
+
     if(!shoping){
       shoping = new Shoping(req.body);
     }
     console.log(shoping.items)
     shoping.items.addToSet(req.body.items);
+    shoping.customer=req.customer._id
     await shoping.save();
     return res.status(200).json({msg:"shoping add successfully",shoping})
     }catch (error) {
