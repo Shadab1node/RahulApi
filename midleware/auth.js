@@ -171,8 +171,8 @@ exports.customerloggedIn = async function(req, res, next){
         const token = authHeaderStringSplit[1];
         const decodedToken = await jwt.verify(token, process.env.PROCESS_KEY);
         console.log(`decoded token: ${decodedToken.email}`)
-        const wholesaler = await Customer.findById(decodedToken.customer);
-        if(!wholesaler){
+        const customer = await Customer.findById(decodedToken.customer);
+        if(!customer){
             return res.status(404).json({
                 error: 'customer not found'
             })

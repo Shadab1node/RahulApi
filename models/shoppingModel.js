@@ -3,24 +3,18 @@ var Schema = mongoose.Schema;
 
 const shopingSchema= new Schema(
     { 
-        wholesaler:{
+        wholeseler:{
             type:Schema.Types.ObjectId,
             ref:"wholeseler"
-          },
-          user:{
+        },
+        customer:{
             type:Schema.Types.ObjectId,
-            ref:"user"
-          },
-          item: {  
-            type: [
-              {
-                item: {
-                  type: Schema.Types.ObjectId,
-                  ref: "item",
-                },
-              },
-            ],
-          },
+            ref:"customer"
+        },
+        items: {  
+            type: [Schema.Types.ObjectId],
+            ref: "item",
+        },
         select:{
             type:String,
        },

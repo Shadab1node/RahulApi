@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 const otpGenerator = require('otp-generator');
 const nodemailer = require("nodemailer");
 
-const createToken = (wholeseler) => {
-    return jwt.sign({ wholeseler}, process.env.PROCESS_KEY, {
+const createToken = (customer) => {
+    return jwt.sign({ customer}, process.env.PROCESS_KEY, {
       expiresIn: "7d",
     });
   };
