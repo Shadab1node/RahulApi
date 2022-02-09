@@ -7,14 +7,23 @@ const shopingSchema= new Schema(
             type:Schema.Types.ObjectId,
             ref:"wholeseler"
           },
-        item:{
+          user:{
             type:Schema.Types.ObjectId,
-            ref:"item"
-        },
+            ref:"user"
+          },
+          item: {  
+            type: [
+              {
+                item: {
+                  type: Schema.Types.ObjectId,
+                  ref: "item",
+                },
+              },
+            ],
+          },
         select:{
             type:String,
-          
-        },
+       },
         Qut:{
             type:String
         },
