@@ -13,7 +13,7 @@ const shopingSchema= new Schema(
         },
         select:{
             type:String,
-            default:"false"
+          
         },
         Qut:{
             type:String
