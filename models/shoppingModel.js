@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 
 const shopingSchema= new Schema(
     { 
-        vender:{
+        wholesaler:{
             type:Schema.Types.ObjectId,
-            ref:"vender"
-        },
+            ref:"wholeseler"
+          },
         item:{
             type:Schema.Types.ObjectId,
             ref:"item"
@@ -25,6 +25,9 @@ const shopingSchema= new Schema(
             type:String
         },
         finalprice:{
+            type:String
+        },
+        pickup:{
             type:String
         }
     },
