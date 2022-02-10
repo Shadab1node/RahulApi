@@ -1,5 +1,6 @@
 const Shoping = require("../models/shoppingModel")
 const moment = require('moment');
+const mongoose = require('mongoose');
 
 // ADD SHOPPING
 async function getCart(userId) {
@@ -128,6 +129,29 @@ exports.getshopingbyid = async (req, res) => {
     return res.status(200).json({ msg: "shoping get by id successfully", shoping })
   } catch (error) {
     console.log(error)
+    return res.status(400).json({ msg: "something went wrong" })
+  }
+}
+
+exports.deleteItemInShoping = async (req, res) => {
+  try{
+    const shoping = await Shoping.findOne({
+      _id: req.body.shopingId,
+      wholeseler: req.wholesaler._id
+    });
+
+    if(!shoping){
+      return res.status(404).json({msg: "order with given id not found"})
+    }
+    console.log(req.body.itemId);
+    await shoping.updateOne({
+      $pull: {items: {item: req.body.itemId}}
+    })
+    // shoping.items.pull({item: mongoose.Types.ObjectId(req.body.itemId)});
+    await shoping.save();
+    return res.status(200).json({msg: 'item deleted', shoping});
+  } catch(error){
+    console.log(error);
     return res.status(400).json({ msg: "something went wrong" })
   }
 }
