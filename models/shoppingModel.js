@@ -1,29 +1,30 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-const shopingSchema= new Schema(
-    { 
-        wholeseler:{
-            type:Schema.Types.ObjectId,
-            ref:"wholeseler"
+const shopingSchema = new Schema(
+    {
+        wholeseler: {
+            type: Schema.Types.ObjectId,
+            ref: "wholeseler"
         },
-        customer:{
-            type:Schema.Types.ObjectId,
-            ref:"customer"
+        customer: {
+            type: Schema.Types.ObjectId,
+            ref: "customer"
         },
-        items: {  
-            type: [Schema.Types.ObjectId],
-            ref: "item",
-            default: []
+        items: {
+            // type: [Schema.Types.ObjectId],
+            // ref: "item",
+            // default: []
+            type: [{}]
         },
-        select:{
-            type:String,
-       },
-        Qut:{
-            type:String
+        select: {
+            type: String,
         },
-        total:{
-            type:String
+        Qut: {
+            type: String
+        },
+        total: {
+            type: String
         },
         // finalqty:{
         //     type:String
@@ -31,13 +32,13 @@ const shopingSchema= new Schema(
         // finalprice:{
         //     type:String
         // },
-        pickup:{
-            type:String
+        pickup: {
+            type: String
         }
     },
     {
-    timestamps: true,
-  });
+        timestamps: true,
+    });
 
-var Shoping = mongoose.model("shoping",shopingSchema);
+var Shoping = mongoose.model("shoping", shopingSchema);
 module.exports = Shoping;
