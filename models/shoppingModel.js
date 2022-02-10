@@ -35,9 +35,8 @@ const shopingSchema = new Schema(
                 vendorPrice: {
                     type: Number
                 },
-                distributor: {
-                    type: Schema.Types.ObjectId,
-                    ref: 'distibuter'
+                actualPrice: {
+                    type: Number
                 }
             }],
             default: []
@@ -54,10 +53,24 @@ const shopingSchema = new Schema(
         pickup: {
             type: String
         },
+        shippingCost: {
+            type: Number,
+            default: 0
+        },
+        distributor: {
+            type: Schema.Types.ObjectId,
+            ref: 'distibuter'
+        },
         status: {
             type: String,
             enum: ['pending', 'rejected', 'accepted'],
             default: 'pending'
+        },
+        total: {
+            type: Number
+        },
+        date: {
+            type: String
         }
     },
     {

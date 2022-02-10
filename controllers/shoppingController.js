@@ -1,4 +1,5 @@
 const Shoping = require("../models/shoppingModel")
+const moment = require('moment');
 
 // ADD SHOPPING
 async function getCart(userId) {
@@ -35,21 +36,23 @@ exports.addshoping = async (req, res) => {
         customer: req.customer._id,
         wholeseler: req.body.wholeseler,
         pickup: req.body.pickup,
-        distributor: req.body.distributer
+        distributor: req.body.items[0].distributer._id,
+        date: moment().format('YYYY-MM-DD')
       });
     }
     const items = [];
+    console.log(typeof date);
     for(const item of req.body.items){
       items.push({
         item: item._id,
         qty: item.Qty,
         newQty: item.newQty ? item.newQty : 1,
-        price: item.price
+        price: item.price,
+        actualPrice: item.actualPrice
       })
     }
     shoping.items = items;
     await shoping.save();
-    console.log(shoping.items)
     // shoping.items.addToSet(req.body.items);
     // shoping.customer = req.customer._id
     // await shoping.save();
@@ -81,7 +84,33 @@ exports.updateShopingViaWholesaler = async (req, res) => {
       _id: req.body.shopingId,
       wholeseler: req.wholesaler._id
     })
-    
+
+    if(!shoping){
+      return res.status(404).json({msg: "order with given id not found"})
+    }
+
+    shoping.pickup = req.body.pickup;
+    shoping.shippingCost = req.body.shippingCost || 0 ;
+    let total = shoping.shippingCost;
+    const items = [];
+    for(const item of req.body.items){
+      const vendorQty = item.vendorQty || item.Qty;
+      const actualPrice = item.price * vendorQty;
+      total += actualPrice;
+      items.push({
+        item: item.item,
+        qty: item.Qty,
+        newQty: item.newQty ? item.newQty : 1,
+        price: item.price,
+        vendorQty,
+        actualPrice,
+      });
+    }
+    shoping.total = total;
+    shoping.items = items;
+    await shoping.save();
+
+    return res.status(200).json({msg: "shopping updated successfuly", shoping})
   } catch(error){
     console.log(error);
     return res.status(400).json({msg: 'something went wrong'})
