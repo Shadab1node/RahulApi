@@ -24,22 +24,35 @@ async function getCart(userId) {
 
 exports.addshoping = async (req, res) => {
   try {
-    // const shoping=new Shoping(req.body);
-    // shoping.customer=req.customer._id
-    // console.log(req.body.items);
-    // shoping.items=[req.body.items]
-    // //shoping.items.set(req.body.items);
-    // shoping.save();
-    // console.log(shoping)
-    let shoping = await Shoping.findOne({ customer: req.body.customer });
+    let shoping = await Shoping.findOne({ 
+      customer: req.customer._id,
+      wholeseler: req.body.wholeseler,
+      status: 'pending'
+    });
 
     if (!shoping) {
-      shoping = new Shoping(req.body);
+      shoping = new Shoping({
+        customer: req.customer._id,
+        wholeseler: req.body.wholeseler,
+        pickup: req.body.pickup,
+        distributor: req.body.distributer
+      });
     }
-    console.log(shoping.items)
-    shoping.items.addToSet(req.body.items);
-    shoping.customer = req.customer._id
+    const items = [];
+    for(const item of req.body.items){
+      items.push({
+        item: item._id,
+        qty: item.Qty,
+        newQty: item.newQty,
+        price: item.price
+      })
+    }
+    shoping.items = items;
     await shoping.save();
+    console.log(shoping.items)
+    // shoping.items.addToSet(req.body.items);
+    // shoping.customer = req.customer._id
+    // await shoping.save();
     return res.status(200).json({ msg: "shoping add successfully", shoping })
   } catch (error) {
     console.log(error);
@@ -51,12 +64,23 @@ exports.addshoping = async (req, res) => {
 
 exports.getshoping = async (req, res) => {
   try {
-    const shoping = await Shoping.find({})
-      .populate("wholeseler").populate("items")
+    console.log(req.wholesaler)
+    const shoping = await Shoping.find({
+      wholeseler: req.wholesaler._id
+    }).populate("customer items.item");
     return res.status(200).json({ msg: "shoping get successfully", shoping })
   } catch (error) {
     console.log(error)
     return res.status(400).json({ msg: "something went wrong" })
+  }
+}
+
+exports.updateShopingViaWholesaler = async (req, res) => {
+  try{
+
+  } catch(error){
+    console.log(error);
+    return res.status(400).json({msg: 'something went wrong'})
   }
 }
 

@@ -15,16 +15,35 @@ const shopingSchema = new Schema(
             // type: [Schema.Types.ObjectId],
             // ref: "item",
             // default: []
-            type: [{}]
+            type: [{
+                item: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'item'
+                },
+                qty: {
+                    type: Number,
+                },
+                newQty: {
+                    type: Number
+                },
+                vendorQty: {
+                    type: Number
+                },
+                price: {
+                    type: Number
+                },
+                vendorPrice: {
+                    type: Number
+                },
+                distributor: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'distibuter'
+                }
+            }],
+            default: []
         },
         select: {
             type: String,
-        },
-        Qut: {
-            type: String
-        },
-        total: {
-            type: String
         },
         // finalqty:{
         //     type:String
@@ -34,6 +53,11 @@ const shopingSchema = new Schema(
         // },
         pickup: {
             type: String
+        },
+        status: {
+            type: String,
+            enum: ['pending', 'rejected', 'accepted'],
+            default: 'pending'
         }
     },
     {
