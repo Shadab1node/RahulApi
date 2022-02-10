@@ -43,7 +43,7 @@ exports.addshoping = async (req, res) => {
       items.push({
         item: item._id,
         qty: item.Qty,
-        newQty: item.newQty,
+        newQty: item.newQty ? item.newQty : 1,
         price: item.price
       })
     }
@@ -67,7 +67,7 @@ exports.getshoping = async (req, res) => {
     console.log(req.wholesaler)
     const shoping = await Shoping.find({
       wholeseler: req.wholesaler._id
-    }).populate("customer items.item");
+    }).populate("customer");
     return res.status(200).json({ msg: "shoping get successfully", shoping })
   } catch (error) {
     console.log(error)
@@ -77,7 +77,11 @@ exports.getshoping = async (req, res) => {
 
 exports.updateShopingViaWholesaler = async (req, res) => {
   try{
-
+    const shoping = await Shoping.findOne({
+      _id: req.body.shopingId,
+      wholeseler: req.wholesaler._id
+    })
+    
   } catch(error){
     console.log(error);
     return res.status(400).json({msg: 'something went wrong'})
@@ -88,8 +92,10 @@ exports.updateShopingViaWholesaler = async (req, res) => {
 
 exports.getshopingbyid = async (req, res) => {
   try {
-    const shoping = await Shoping.findById({ _id: req.params.id })
-      .populate("vender").populate("item")
+    const shoping = await Shoping.findOne({
+      _id: req.params.id,
+      wholeseler: req.wholesaler._id
+    }).populate("items.item");
     return res.status(200).json({ msg: "shoping get by id successfully", shoping })
   } catch (error) {
     console.log(error)

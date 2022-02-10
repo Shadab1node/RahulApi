@@ -6,7 +6,7 @@ const auth=require("../midleware/auth")
 
 router.route("/addshoping").post(auth.customerloggedIn,Controller.addshoping);
 router.route("/getshoping").get(auth.wholesalerloggedIn, Controller.getshoping);
-router.route("/getshopingbyid/:id").get(Controller.getshopingbyid);
+router.route("/getshopingbyid/:id").get(auth.wholesalerloggedIn, Controller.getshopingbyid);
 router.route("/getitembyvender/:id").get(Controller.itemgetbyvenderid)
 
 module.exports = router;
