@@ -71,6 +71,10 @@ const shopingSchema = new Schema(
         },
         date: {
             type: String
+        },
+        vendorSubmit: {
+            type: Boolean,
+            default: false
         }
     },
     {
