@@ -89,7 +89,7 @@ const shopingSchema = new Schema(
             default: 0
         },
         invoiceId: {
-            type: string,
+            type: String,
         }
     },
     {
