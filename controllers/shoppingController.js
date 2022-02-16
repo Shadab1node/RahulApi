@@ -131,8 +131,10 @@ exports.updateShopingViaWholesaler = async (req, res) => {
       return res.status(404).json({msg: "order with given id not found"});
     }
 
-    const itemIndex = shoping.items.indexOf(req.body.itemId);
-
+    // const itemIndex = shoping.items.indexOf(req.body.itemId);
+    const itemIndex = shoping.items.findIndex((item) => {
+      return item.item.toString() === req.body.itemId;
+    })
     if(itemIndex < 0){
       return res.status(404).json({msg: "item with given id not found in current order"});
     }
@@ -180,6 +182,8 @@ exports.getUpdatedShoping = async (req, res) => {
 
 exports.getshopingbyid = async (req, res) => {
   try {
+    console.log(req.params.id);
+    console.log(req.wholesaler._id);
     const shoping = await Shoping.findOne({
       _id: req.params.id,
       wholeseler: req.wholesaler._id
