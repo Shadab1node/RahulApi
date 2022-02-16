@@ -161,9 +161,14 @@ exports.submitUpdatedShoping = async (req, res) => {
       return res.status(404).json({msg: "order with given id not found"});
     }
 
-    shoping.shippingCost = req.body.shippingCost;
+    shoping.shippingCost = req.body.shippingCost || 0;
     shoping.vendorSubmit = true;
+    shoping.pickup = req.body.pickup || shoping.pickup;
+    shoping.total = 0;
 
+    for (const item of shoping.items){
+      shoping.total += item.vendorPrice || item.actualPrice;
+    }
     await shoping.save();
     return res.status(200).json({msg: 'shoping submitted'});
   } catch(error){
@@ -173,7 +178,33 @@ exports.submitUpdatedShoping = async (req, res) => {
 
 exports.getUpdatedShoping = async (req, res) => {
   try{
+    const shoping = await Shoping.find({
+      customer: req.customer._id,
+      vendorSubmit: true
+    }).populate('wholeseler');
 
+    if(!shoping){
+      return res.status(404).json({msg: 'shoping with given id not found'});
+    }
+    return res.status(200).json({ msg: "shoping get successfully", shoping });
+  } catch(error){
+    console.log(error);
+    return res.status(500).json({msg: 'something went wrong'});
+  }
+}
+
+exports.getUpdatedShopingById = async (req, res) => {
+  try{
+    const shoping = await Shoping.find({
+      customer: req.customer._id,
+      _id: req.params.shopingId,
+      vendorSubmit: true
+    }).populate('items.item');
+
+    if(!shoping){
+      return res.status(404).json({msg: 'shoping with given id not found'});
+    }
+    return res.status(200).json({ msg: "shoping get by id successfully", shoping });
   } catch(error){
     console.log(error);
     return res.status(500).json({msg: 'something went wrong'});
