@@ -24,6 +24,26 @@ async function getCart(userId) {
 //     }
 //   }
 
+async function generateInvoiceId(){
+  try{
+    const numbers = "1234567890";
+    let invoiceExists = true;
+    let invoiceId = '';
+    do{
+      invoiceId = '';
+      for(const i = 0; i < 6; ++i){
+        invoiceId += Math.floor(numbers[Math.random() * 10]);
+      }
+
+      invoiceExists = await Shoping.findOne({invoiceId});
+    }while(invoiceExists)
+
+    return invoiceId;
+  } catch(error){
+    throw error;
+  }
+}
+
 exports.addshoping = async (req, res) => {
   try {
     let shoping = await Shoping.findOne({ 
@@ -33,12 +53,14 @@ exports.addshoping = async (req, res) => {
     });
 
     if (!shoping) {
+      const invoiceId = await generateInvoiceId();
       shoping = new Shoping({
         customer: req.customer._id,
         wholeseler: req.body.wholeseler,
         pickup: req.body.pickup,
         distributor: req.body.items[0].distributer._id,
-        date: moment().format('YYYY-MM-DD')
+        date: moment().format('YYYY-MM-DD'),
+        invoiceId
       });
     }
     const items = [];
@@ -195,7 +217,7 @@ exports.getUpdatedShoping = async (req, res) => {
 
 exports.getUpdatedShopingById = async (req, res) => {
   try{
-    const shoping = await Shoping.find({
+    const shoping = await Shoping.findOne({
       customer: req.customer._id,
       _id: req.params.shopingId,
       vendorSubmit: true
@@ -205,6 +227,125 @@ exports.getUpdatedShopingById = async (req, res) => {
       return res.status(404).json({msg: 'shoping with given id not found'});
     }
     return res.status(200).json({ msg: "shoping get by id successfully", shoping });
+  } catch(error){
+    console.log(error);
+    return res.status(500).json({msg: 'something went wrong'});
+  }
+}
+
+exports.acceptShoping = async (req, res) => {
+  try{
+    const shoping = await Shoping.findOne({
+      customer: req.customer._id,
+      _id: req.body.shopingId
+    });
+
+    if(!shoping){
+      return res.status(404).json({msg: 'shoping with given id not found'});
+    }
+
+    shoping.status = 'accepted';
+    await shoping.save();
+
+    return res.status(200).json({mag: 'order placed'});
+  } catch(error){
+    console.log(error);
+    return res.status(500).json({msg: 'something went wrong'});
+  }
+}
+
+exports.getAcceptedShoping = async (req, res) => {
+  try{
+    const shoping = await Shoping.find({
+      wholeseler: req.wholesaler._id,
+      status: 'accepted'
+    }).populate('customer');
+
+    return res.status(200).json({msg: 'accepted shopings', shoping});
+  } catch(error){
+    console.log(error);
+    return res.status(500).json({msg: 'something went wrong'});
+  }
+}
+
+exports.getAcceptedShopingByID = async (req, res) => {
+  try{
+    const shoping = await Shoping.findOne({
+      wholeseler: req.wholesaler._id,
+      status: 'accepted',
+      _id: req.params.shopingId
+    }).populate('items.item');
+
+    if(!shoping){
+      return res.status(404).json({msg: 'shoping with given id not found'});
+    }
+
+    return res.status(200).json({ msg: "shoping get by id successfully", shoping })
+  } catch(error){
+    console.log(error);
+    return res.status(500).json({msg: 'something went wrong'});
+  }
+}
+
+exports.updateAcceptedShoping = async (req, res) => {
+  try{
+    const shoping = await Shoping.findOne({
+      wholeseler: req.wholesaler._id,
+      status: 'accepted',
+      _id: req.body.shopingId
+    })
+
+    if(!shoping){
+      return res.status(404).json({msg: 'shoping with given id not found'});
+    }
+
+    const itemIndex = shoping.items.findIndex((item) => {
+      return item.item.toString() === req.body.itemId;
+    });
+
+    if(itemIndex < 0){
+      return res.status(404).json({msg: 'item not found in current order'});
+    }
+
+    shoping.items[itemIndex].updatedQty = req.body.qty;
+    const item = shoping.items[itemIndex];
+    shoping.credit += (item.vendorQty - item.updatedQty) * item.price;
+
+    await shoping.save();
+
+    return res.status(200).json({msg: 'item quantity updated'});
+  } catch(error){
+    console.log(error);
+    return res.status(500).json({msg: 'something went wrong'});
+  }
+}
+
+exports.deleteItemFromAccepted = async (req, res) => {
+  try{
+    const shoping = await Shoping.findOne({
+      wholeseler: req.wholesaler._id,
+      _id: req.body.shopingId
+    });
+
+    if(!shoping){
+      return res.status(404).json({msg: 'shoping with given id not found'});
+    }
+
+    const itemIndex = shoping.items.findIndex((item) => {
+      return item.item.toString() === req.body.itemId;
+    });
+
+    if(itemIndex < 0){
+      return res.status(404).json({msg: 'item not found in current order'});
+    }
+
+    shoping.credit += shoping.items[itemIndex].vendorQty * shoping.items[itemIndex].price;
+
+    shoping.items.splice(itemIndex, 1);
+
+    await shoping.save();
+
+    return res.status(200).json({msg: 'item deleted' });
   } catch(error){
     console.log(error);
     return res.status(500).json({msg: 'something went wrong'});

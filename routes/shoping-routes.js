@@ -12,7 +12,12 @@ router.route('/updatedshopingsubmit').put(auth.wholesalerloggedIn, Controller.su
 router.route("/deleteitemfromshoping").delete(auth.wholesalerloggedIn, Controller.deleteItemInShoping);
 router.route("/updatedshoping").get(auth.customerloggedIn, Controller.getUpdatedShoping);
 router.route("/updatedshoping/:shopingId").get(auth.customerloggedIn, Controller.getUpdatedShopingById);
+router.route("/acceptshoping").post(auth.customerloggedIn, Controller.acceptShoping);
 // router.route("/user/getshoping").get();
+router.route("/acceptedshoping").get(auth.wholesalerloggedIn, Controller.getAcceptedShoping);
+router.route("/acceptedshoping/:shopingId").get(auth.wholesalerloggedIn, Controller.getAcceptedShopingByID);
+router.route("/updateacceptedshoping").put(auth.wholesalerloggedIn, Controller.updateAcceptedShoping);
+router.route("/deletefromaccepted").delete(auth.wholesalerloggedIn, Controller.deleteItemFromAccepted);
 router.route("/getitembyvender/:id").get(Controller.itemgetbyvenderid);
 
 module.exports = router;

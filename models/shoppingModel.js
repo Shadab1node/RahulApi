@@ -1,6 +1,37 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+const shopingItemSchema = new Schema({
+    item: {
+        type: Schema.Types.ObjectId,
+        ref: 'item'
+    },
+    qty: {
+        type: Number,
+    },
+    newQty: {
+        type: Number
+    },
+    vendorQty: {
+        type: Number
+    },
+    price: {
+        type: Number
+    },
+    vendorPrice: {
+        type: Number,
+        default: function () {
+            return this.qty;
+        }
+    },
+    actualPrice: {
+        type: Number
+    },
+    updatedQty: {
+        type: Number
+    }    
+}, {_id: false});
+
 const shopingSchema = new Schema(
     {
         wholeseler: {
@@ -15,30 +46,7 @@ const shopingSchema = new Schema(
             // type: [Schema.Types.ObjectId],
             // ref: "item",
             // default: []
-            type: [{
-                item: {
-                    type: Schema.Types.ObjectId,
-                    ref: 'item'
-                },
-                qty: {
-                    type: Number,
-                },
-                newQty: {
-                    type: Number
-                },
-                vendorQty: {
-                    type: Number
-                },
-                price: {
-                    type: Number
-                },
-                vendorPrice: {
-                    type: Number
-                },
-                actualPrice: {
-                    type: Number
-                }
-            }],
+            type: [shopingItemSchema],
             default: []
         },
         select: {
@@ -75,6 +83,13 @@ const shopingSchema = new Schema(
         vendorSubmit: {
             type: Boolean,
             default: false
+        },
+        credit: {
+            type: Number,
+            default: 0
+        },
+        invoiceId: {
+            type: string,
         }
     },
     {
