@@ -32,7 +32,7 @@ async function generateInvoiceId(){
     do{
       invoiceId = '';
       for(let i = 0; i < 6; ++i){
-        invoiceId += Math.floor(numbers[Math.random() * 10]);
+        invoiceId += numbers[Math.floor(Math.random() * 10)];
       }
 
       invoiceExists = await Shoping.findOne({invoiceId});
