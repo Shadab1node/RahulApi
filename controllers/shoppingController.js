@@ -31,7 +31,7 @@ async function generateInvoiceId(){
     let invoiceId = '';
     do{
       invoiceId = '';
-      for(const i = 0; i < 6; ++i){
+      for(let i = 0; i < 6; ++i){
         invoiceId += Math.floor(numbers[Math.random() * 10]);
       }
 
