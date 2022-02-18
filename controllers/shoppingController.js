@@ -71,7 +71,8 @@ exports.addshoping = async (req, res) => {
         qty: item.Qty,
         newQty: item.newQty ? item.newQty : 1,
         price: item.price,
-        actualPrice: item.actualPrice
+        actualPrice: item.actualPrice,
+        vendorQty: item.Qty
       })
     }
     shoping.items = items;
